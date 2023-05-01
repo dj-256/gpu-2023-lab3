@@ -53,16 +53,13 @@ def scanGPU(a, block_size=16):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('filename')
+    parser.add_argument('filename', type=str, help="input file containing the array")
+    parser.add_argument('--tb', type=int, default=16, help="thread block size")
+    parser.add_argument('--independent', action='store_true', help="independent scan")
+    parser.add_argument('--inclusive', action='store_true', help="inclusive scan")
     args = parser.parse_args()
 
     file_content = open(args.filename).read()
     a = np.array([int(x) for x in file_content.split(",")])
-
-    print("a", a)
     res = scanGPU(a)
-    print("res", res)
-    expected = np.concatenate(([0], np.cumsum(a)))[:-1]
-    print("expected", expected)
-    assert np.all(res == expected)
-    print("OK")
+    print(*res, sep=",")
