@@ -4,6 +4,9 @@ import numpy as np
 def randomArray(power_of_two, min=-100, max=100):
     return np.random.randint(min, max, 2 ** power_of_two, dtype=np.int32)
 
+def randomArbitraryArray(size, min=-100, max=100):
+    return np.random.randint(min, max, size, dtype=np.int32)
+
 
 def scanCPU(a):
     n = len(a)
